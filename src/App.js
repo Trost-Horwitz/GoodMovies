@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import movieFetch from './adapters/movieFetch'
+import firebaseFetch from './adapters/firebaseFetch'
+
 
 class App extends Component {
 
@@ -17,9 +19,11 @@ class App extends Component {
     //Example fetch for popular movies -- see adapters/movieFetch.js for all options
     movieFetch.popularMovies().then(json=>(this.setState({apiData:json})))
 
+    firebaseFetch.getAllUsers().then(console.log)
   }
 
   render() {
+
     return (
       <div className="App">
         <header className="App-header">
