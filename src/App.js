@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import movieFetch from './adapters/movieFetch'
-// require('dotenv').config()
 
 class App extends Component {
 
@@ -10,26 +9,17 @@ class App extends Component {
     super()
 
     this.state = {
-      apiData : {}
     }
   }
 
-  getPopular = () =>{
-
-    movieFetch.nowPlaying().then(json=>(this.setState({apiData:json})))
-    // const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_APIKEY}&language=en-US&page=1`
-    //
-    // fetch(url).then(resp=>resp.json()).then(json=>(this.setState({apiData:json})))
-
-
-  }
-
   componentDidMount(){
-    this.getPopular()
+
+    //Example fetch for popular movies -- see adapters/movieFetch.js for all options
+    movieFetch.popularMovies().then(json=>(this.setState({apiData:json})))
+
   }
 
   render() {
-    console.log(this.state.apiData.results)
     return (
       <div className="App">
         <header className="App-header">
@@ -39,7 +29,9 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        {this.state.apiData.results ? this.state.apiData.results.map(mov=>(<h2>{mov.title}</h2>)) : <h2></h2>}
+
+        {// this renders movie titles on the page as an example
+          this.state.apiData && this.state.apiData[0].title ? this.state.apiData.map(mov=>(<h2>{mov.title}</h2>)) : <h2></h2>}
       </div>
     );
   }
