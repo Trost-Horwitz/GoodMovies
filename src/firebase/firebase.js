@@ -16,7 +16,7 @@ import firebase from 'firebase'
 // require("firebase/storage");
 
 const config = {
-  apiKey: "AIzaSyBJAqsWgZzQxcPxFgGSx-URVdANpf6mWMw",
+  apiKey: `${process.env.REACT_APP_FIREBASEKEY}`,
   authDomain: "movieproject-8dbd4.firebaseapp.com",
   databaseURL: "https://movieproject-8dbd4.firebaseio.com",
   projectId: "movieproject-8dbd4",
