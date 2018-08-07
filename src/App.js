@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import movieFetch from './adapters/movieFetch'
 // require('dotenv').config()
 
 class App extends Component {
@@ -14,9 +15,13 @@ class App extends Component {
   }
 
   getPopular = () =>{
-    const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_APIKEY}&language=en-US&page=1`
 
-    fetch(url).then(resp=>resp.json()).then(json=>(this.setState({apiData:json})))
+    movieFetch.nowPlaying().then(json=>(this.setState({apiData:json})))
+    // const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_APIKEY}&language=en-US&page=1`
+    //
+    // fetch(url).then(resp=>resp.json()).then(json=>(this.setState({apiData:json})))
+
+
   }
 
   componentDidMount(){
@@ -34,7 +39,7 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        {this.state.apiData.results ? this.state.apiData.results.map(mov=>(<h2>{mov.title}</h2>)) : null}
+        {this.state.apiData.results ? this.state.apiData.results.map(mov=>(<h2>{mov.title}</h2>)) : <h2></h2>}
       </div>
     );
   }
