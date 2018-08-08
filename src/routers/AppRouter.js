@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import HomePage from "../components/HomePage";
 import NotFoundPage from "../components/NotFoundPage";
+import SignInScreen from '../components/FirebaseAuth/SignInScreen'
 
 const AppRouter = props => (
   <BrowserRouter>
@@ -16,6 +17,7 @@ const AppRouter = props => (
         {/* <Route path="/movie/:id" component={MovieViewPage} /> */}
         {/* <Route path="/login" component={LoginPage} /> */}
         {/* <Route path="/logout" component={LogOut} /> */}
+        <Route path='/signin' component={SignInScreen} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>

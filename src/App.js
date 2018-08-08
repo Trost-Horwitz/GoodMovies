@@ -7,6 +7,8 @@ import movieFetch from "./adapters/movieFetch";
 import firebaseFetch from "./adapters/firebaseFetch";
 import theme from "./theme";
 
+import SignInScreen from './components/FirebaseAuth/SignInScreen'
+
 class App extends Component {
   constructor() {
     super();
@@ -26,6 +28,7 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         {/* Passing state this lazy way for now until we add Redux */}
         <AppRouter {...this.state} />
+
       </MuiThemeProvider>
     );
   }
