@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 
-import NavBar from "./components/NavBar";
-import MovieCardRow from "./components/MovieCardRow";
+import AppRouter from "./routers/AppRouter";
 
 import movieFetch from "./adapters/movieFetch";
-import firebaseFetch from './adapters/firebaseFetch'
+import firebaseFetch from "./adapters/firebaseFetch";
 import theme from "./theme";
 
 class App extends Component {
@@ -19,17 +18,14 @@ class App extends Component {
     movieFetch.popularMovies().then(json => this.setState({ apiData: json }));
 
     //Example of firebase call using adapter
-    firebaseFetch.getAllUsers().then(console.log)
+    firebaseFetch.getAllUsers().then(console.log);
   }
 
   render() {
-
     return (
       <MuiThemeProvider theme={theme}>
-        <div className="App">
-          <NavBar />
-          <MovieCardRow movies={this.state.apiData} />
-        </div>
+        {/* Passing state this lazy way for now until we add Redux */}
+        <AppRouter {...this.state} />
       </MuiThemeProvider>
     );
   }
