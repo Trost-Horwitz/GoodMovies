@@ -2,12 +2,16 @@ import React, { Component } from "react";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 
 import AppRouter from "./routers/AppRouter";
+import { Provider } from "react-redux";
 
+import configureStore from "./store/configureStore";
 import movieFetch from "./adapters/movieFetch";
 import firebaseFetch from "./adapters/firebaseFetch";
 import theme from "./theme";
 
-import SignInScreen from './components/FirebaseAuth/SignInScreen'
+import SignInScreen from "./components/FirebaseAuth/SignInScreen";
+
+const store = configureStore();
 
 class App extends Component {
   constructor() {
@@ -26,9 +30,9 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        {/* Passing state this lazy way for now until we add Redux */}
-        <AppRouter {...this.state} />
-
+        <Provider store={store}>
+          <AppRouter {...this.state} />
+        </Provider>
       </MuiThemeProvider>
     );
   }
