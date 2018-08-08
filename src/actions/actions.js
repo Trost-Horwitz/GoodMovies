@@ -1,5 +1,21 @@
-// TODO Make thunks that push to firebase and update redux store
+import firebaseFetch from "../adapters/firebaseFetch";
 
-// addUser action - adds to redux store
-// &
-// startAddUser thunk - pushes to firebase and kicks off 'addUser' action
+// property we get from auth: isNewUser
+
+export const login = (authDetails = {}) => ({
+  type: "LOGIN",
+  payload: { uid: authDetails.user.uid }
+});
+
+export const startLogin = (authDetails = {}) => {
+  if (authDetails.additionalUserInfo.isNewUser) {
+    return dispatch => {
+      firebaseFetch.createUser(authDetails.user.uid);
+    };
+  } else {
+    return dispatch => {
+      firebaseFetch.getUser(authDetails.user.uid);
+      dispatch();
+    };
+  }
+};
