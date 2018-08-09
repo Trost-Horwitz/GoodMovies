@@ -1,7 +1,5 @@
 import firebaseFetch from "../adapters/firebaseFetch";
 
-// property we get from auth: isNewUser
-
 // export const login = (authDetails = {}) => ({
 //   type: "LOGIN",
 //   payload: { uid: authDetails.user.uid }
@@ -12,12 +10,12 @@ export const getUserData = (userId = {}) => {
     if (doc.exists) {
       console.log("Document data:", doc.data());
     } else {
-      // doc.data() will be undefined in this case
       console.log("No such document!");
     }
   });
 };
-export const startLogin = (authDetails = {}) => {
+
+export const startGetUserData = (authDetails = {}) => {
   if (authDetails.additionalUserInfo.isNewUser) {
     return function action(dispatch) {
       firebaseFetch
