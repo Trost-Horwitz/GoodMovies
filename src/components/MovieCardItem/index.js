@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import firebase from "firebase";
 import { connect } from "react-redux";
 import { addMovieToWatch } from "../../actions/actions";
+import { NavLink } from "react-router-dom";
 
 const styles = {
   card: {
@@ -62,9 +63,15 @@ function MovieCardItem(props) {
           <Button size="small" color="primary">
             Learn More
           </Button>
-          <Button onClick={()=>handleClickAddMovie(props)}size="small" color="primary">
+          {firebase.auth().currentUser ? <Button onClick={()=>handleClickAddMovie(props)}size="small" color="primary">
             Add To Watch List
-          </Button>
+          </Button> :
+          <NavLink to="/signin">
+            <Button
+              size="small" color="primary">
+              Login & Add To Watch List
+            </Button>
+          </NavLink>}
         </CardActions>
       </Card>
     </div>
