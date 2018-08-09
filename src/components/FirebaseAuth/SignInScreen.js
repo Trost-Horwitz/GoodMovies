@@ -4,7 +4,7 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import firebase from "firebase";
 import { connect } from "react-redux";
 
-import { startLogin } from "../../actions/actions";
+import { signin } from "../../actions/auth";
 
 class SignInScreen extends React.Component {
   // Configure FirebaseUI.
@@ -20,7 +20,7 @@ class SignInScreen extends React.Component {
     ],
     callbacks: {
       signInSuccessWithAuthResult: authDetails =>
-        this.props.dispatch(startLogin(authDetails))
+        this.props.dispatch(signin(authDetails))
     }
   };
   //authDetails has these useful properties:
@@ -43,7 +43,7 @@ class SignInScreen extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {};
+  return state;
 };
 
 export default connect(mapStateToProps)(SignInScreen);
