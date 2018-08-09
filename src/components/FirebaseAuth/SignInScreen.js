@@ -23,6 +23,12 @@ class SignInScreen extends React.Component {
         this.props.dispatch(startLogin(authDetails))
     }
   };
+  //authDetails has these useful properties:
+  // authDetails.additionalUserInfo.isNewUser (boolean)
+  // authDetails.user.uid (string)
+  // authDetails.user.displayName (string)
+  // authDetails.user.email (string)
+  // authDetails.user.emailVerified (boolean)
 
   render(props) {
     return (
