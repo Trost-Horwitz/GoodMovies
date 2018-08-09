@@ -34,7 +34,6 @@ class SignInScreen extends React.Component {
   // authDetails.user.emailVerified (boolean)
 
   render(props) {
-    console.log("inside signin render", this.props)
     return (
       <div>
         {this.props.auth && this.props.auth.uid ? <Redirect to='/user'/> : null}
