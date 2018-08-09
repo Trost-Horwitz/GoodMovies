@@ -24,7 +24,7 @@ class App extends Component {
     movieFetch.popularMovies().then(json => this.setState({ apiData: json }));
 
     //Example of firebase call using adapter
-    firebaseFetch.getAllUsers().then(console.log);
+    // firebaseFetch.getAllUsers().then(console.log);
   }
 
   render() {
