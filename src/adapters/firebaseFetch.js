@@ -24,10 +24,18 @@ const firebaseFetch = {
 
   getUserData: function(uid){
     return this.db.collection("users").doc(`${uid}`).get()
-    .then(resp=>(resp.data()))
+    .then(doc => {
+      if (doc.exists) {
+        console.log("Document data:", doc.data());
+        return doc.data()
+      } else {
+        console.log("No such document!");
+        return null
+      }
+    })
   },
 
-  
+
   // multiple selection
 
   // db.collection("users").where("username", "==", "secondUser").get().then(querySnapshot=>(querySnapshot.forEach(doc=>console.log(doc.data()))))

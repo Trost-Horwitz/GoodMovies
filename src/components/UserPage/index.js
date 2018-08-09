@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 
 class UserPage extends React.Component{
   render(){
+    console.log("insideUserPage", this.props)
     return (
       <div>
         {firebase.auth().currentUser && <h1>SO COOL</h1>}

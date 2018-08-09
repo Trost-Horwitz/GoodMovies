@@ -10,6 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 // import MenuIcon from "@material-ui/icons/Menu";
 import TextButton from "../Button";
 import styled from "styled-components";
+import firebase from "firebase";
 
 const ButtonContainer = styled.div`
   justify-self: flex-end;
@@ -52,11 +53,18 @@ function ButtonAppBar(props) {
               Login
             </TextButton> */}
 
-            <NavLink to="/signin">
-              <TextButton variant="contained" color="secondary" size="large">
-                Sign In
-              </TextButton>
-            </NavLink>
+          {firebase.auth().currentUser ?
+          <NavLink to="/user">
+            <TextButton variant="contained" color="secondary" size="large">
+              User Page
+            </TextButton>
+          </NavLink>
+          :
+          <NavLink to="/signin">
+            <TextButton variant="contained" color="secondary" size="large">
+              Sign In
+            </TextButton>
+          </NavLink>}
           </ButtonContainer>
         </CustomToolbar>
       </AppBar>

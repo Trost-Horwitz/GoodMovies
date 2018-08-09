@@ -8,6 +8,10 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "../Button";
 import Typography from "@material-ui/core/Typography";
 
+import firebase from "firebase";
+import { connect } from "react-redux";
+import { addMovieToWatch } from "../../actions/actions";
+
 const styles = {
   card: {
     maxWidth: 345
@@ -16,6 +20,20 @@ const styles = {
     height: 0,
     paddingTop: "56.25%" // 16:9
   }
+};
+
+const handleClickAddMovie = (props)=>{
+  const userID = firebase.auth().currentUser.uid
+  props.addMovieToWatch(userID, {
+    backdrop_path:props.backdrop_path,
+    genre_ids:props.genre_ids,
+    id:props.id,
+    title:props.title,
+    poster_path:props.poster_path,
+    overview:props.overview,
+    popularity:props.popularity,
+    release_date:props.release_date, vote_average:props.vote_average
+  })
 };
 
 function MovieCardItem(props) {
@@ -44,6 +62,9 @@ function MovieCardItem(props) {
           <Button size="small" color="primary">
             Learn More
           </Button>
+          <Button onClick={()=>handleClickAddMovie(props)}size="small" color="primary">
+            Add To Watch List
+          </Button>
         </CardActions>
       </Card>
     </div>
@@ -54,4 +75,16 @@ MovieCardItem.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(MovieCardItem);
+const mapStateToProps = state => {
+  return state;
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addMovieToWatch: (id, movie) => dispatch(addMovieToWatch(id, movie))
+  }
+}
+
+const StyledComponent = withStyles(styles)(MovieCardItem);
+
+export default connect(mapStateToProps, mapDispatchToProps)(StyledComponent)

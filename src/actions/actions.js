@@ -6,13 +6,7 @@ import firebaseFetch from "../adapters/firebaseFetch";
 // });
 
 export const getUserData = (userId = {}) => {
-  firebaseFetch.getUserData(userId).then(doc => {
-    if (doc.exists) {
-      console.log("Document data:", doc.data());
-    } else {
-      console.log("No such document!");
-    }
-  });
+  firebaseFetch.getUserData(userId);
 };
 
 export const startGetUserData = (authDetails = {}) => {
@@ -30,3 +24,11 @@ export const startGetUserData = (authDetails = {}) => {
     };
   }
 };
+
+export const addMovieToWatch = (uid, movieObj)=>{
+  // const oldUserData = await firebaseFetch.getUserData(uid)
+  return {
+    type: "ADD_MOVIE",
+    payload: {...movieObj}
+  }
+}
