@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 
 import firebase from "firebase";
 import { connect } from "react-redux";
-import { addMovieToWatch } from "../../actions/actions";
+import { startAddMovieToList } from "../../actions/actions";
 import { NavLink } from "react-router-dom";
 
 const styles = {
@@ -23,55 +23,49 @@ const styles = {
   }
 };
 
-const handleClickAddMovie = (props)=>{
-  const userID = firebase.auth().currentUser.uid
-  props.addMovieToWatch(userID, {
-    backdrop_path:props.backdrop_path,
-    genre_ids:props.genre_ids,
-    id:props.id,
-    title:props.title,
-    poster_path:props.poster_path,
-    overview:props.overview,
-    popularity:props.popularity,
-    release_date:props.release_date, vote_average:props.vote_average
-  })
+const handleClickAddMovie = props => {
+  const userID = firebase.auth().currentUser.uid;
+  props.startAddMovieToList(userID, props.movie);
 };
 
 function MovieCardItem(props) {
-  const { classes } = props;
+  const { movie, classes } = props;
   return (
     <div>
       <Card className={classes.card}>
         <CardMedia
           className={classes.media}
-          image={`https://image.tmdb.org/t/p/w300${props.poster_path}`}
-          title={props.title}
+          image={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+          title={movie.title}
         />
         <CardContent>
           <Typography gutterBottom variant="headline" component="h2">
-            {props.title}
+            {movie.title}
           </Typography>
           <Typography component="p">
-            {props.overview.substring(0, 250)}
-            {props.overview.length > 250 ? "..." : ""}
+            {movie.overview.substring(0, 250)}
+            {movie.overview.length > 250 ? "..." : ""}
           </Typography>
         </CardContent>
         <CardActions>
           <Button size="small" color="primary">
-            Share
+            View Details
           </Button>
-          <Button size="small" color="primary">
-            Learn More
-          </Button>
-          {firebase.auth().currentUser ? <Button onClick={()=>handleClickAddMovie(props)}size="small" color="primary">
-            Add To Watch List
-          </Button> :
-          <NavLink to="/signin">
+          {firebase.auth().currentUser ? (
             <Button
-              size="small" color="primary">
-              Login & Add To Watch List
+              onClick={() => handleClickAddMovie(props)}
+              size="small"
+              color="primary"
+            >
+              Add To Watch List
             </Button>
-          </NavLink>}
+          ) : (
+            <NavLink to="/signin">
+              <Button size="small" color="primary">
+                Login & Add To Watch List
+              </Button>
+            </NavLink>
+          )}
         </CardActions>
       </Card>
     </div>
@@ -86,12 +80,15 @@ const mapStateToProps = state => {
   return state;
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    addMovieToWatch: (id, movie) => dispatch(addMovieToWatch(id, movie))
-  }
-}
+    startAddMovieToList: (id, movie) => dispatch(startAddMovieToList(id, movie))
+  };
+};
 
 const StyledComponent = withStyles(styles)(MovieCardItem);
 
-export default connect(mapStateToProps, mapDispatchToProps)(StyledComponent)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StyledComponent);
