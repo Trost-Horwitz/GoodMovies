@@ -5,8 +5,12 @@ import firebaseFetch from "../adapters/firebaseFetch";
 //   payload: { uid: authDetails.user.uid }
 // });
 
-export const getUserData = (userId = {}) => {
-  firebaseFetch.getUserData(userId);
+export const getUserData = (userId = "") => {
+  const udata = firebaseFetch.getUserData(userId);
+  return {
+    type: "GET_USER_DATA",
+    payload: { ...udata}
+  }
 };
 
 export const startGetUserData = (authDetails = {}) => {

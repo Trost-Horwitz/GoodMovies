@@ -1,8 +1,8 @@
 const reducerDefaultState = { toWatch: {} };
 
 export default (state = reducerDefaultState, action) => {
-  console.log(action.type, action.payload);
-  let newToWatch;
+  console.log(state, action.type, action.payload);
+  let newToWatch = {};
   switch (action.type) {
     case "ADD_MOVIE":
       newToWatch = state.toWatch;
@@ -13,9 +13,9 @@ export default (state = reducerDefaultState, action) => {
       newToWatch[action.payload.id] = action.payload;
       return { ...state, toWatch: newToWatch };
     case "GET_USER_DATA":
-      return [...state, action.payload];
+      return {...state, ...action.payload};
     case "UPDATE_USER_DATA":
-      return [...state, action.payload];
+      return {...state, ...action.payload};
     default:
       return state;
   }

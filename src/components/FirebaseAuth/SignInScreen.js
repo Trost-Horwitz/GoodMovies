@@ -5,8 +5,11 @@ import firebase from "firebase";
 import { connect } from "react-redux";
 
 import { signin } from "../../actions/auth";
+import { startGetUserData } from "../../actions/actions";
 
 import { Redirect } from "react-router-dom";
+
+import firebaseFetch from '../../adapters/firebaseFetch'
 
 class SignInScreen extends React.Component {
   // Configure FirebaseUI.
@@ -22,6 +25,7 @@ class SignInScreen extends React.Component {
     callbacks: {
       signInSuccessWithAuthResult: authDetails =>
         {this.props.dispatch(signin(authDetails))
+          this.props.dispatch(startGetUserData(authDetails))
           return false
         },
     },
