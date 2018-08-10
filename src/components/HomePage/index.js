@@ -1,19 +1,28 @@
 import React from "react";
 import NavBar from "../NavBar";
 import MovieCardRow from "../MovieCardRow";
-import firebase from 'firebase'
+import firebase from "firebase";
 import { connect } from "react-redux";
 
-const mapStateToProps = (state) => {
-  return state
+class HomePage extends React.Component {
+  render(props) {
+    return (
+      <div>
+        <button
+          onClick={() => {
+            console.log(firebase.auth().currentUser.displayName);
+          }}
+        >
+          WHATS MY NAME
+        </button>
+        <MovieCardRow movies={this.props.apiData} />
+      </div>
+    );
+  }
 }
 
-export default connect(mapStateToProps)(props => {
-  return (
-    <div>
-      <MovieCardRow movies={props.apiData} />
+const mapStateToProps = state => {
+  return state;
+};
 
-      <button onClick={()=>{console.log(firebase.auth().currentUser.displayName)}}>WHATS MY NAME</button>
-    </div>
-  );
-})
+export default connect(mapStateToProps)(HomePage);

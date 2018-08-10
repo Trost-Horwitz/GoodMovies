@@ -11,7 +11,8 @@ const Container = styled.section`
 function MovieCardRow(props) {
   return (
     <Container>
-      {props.movies && props.movies.map(movie => <MovieCardItem {...movie} />)}
+      {props.movies &&
+        props.movies.map(movie => <MovieCardItem movie={movie} />)}
     </Container>
   );
 }
