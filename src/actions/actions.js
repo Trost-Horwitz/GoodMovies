@@ -25,10 +25,30 @@ export const startGetUserData = (authDetails = {}) => {
   }
 };
 
-export const addMovieToWatch = (uid, movieObj)=>{
-  // const oldUserData = await firebaseFetch.getUserData(uid)
+export const addMovieToList = movieObj => {
   return {
     type: "ADD_MOVIE",
-    payload: {...movieObj}
-  }
-}
+    payload: { ...movieObj }
+  };
+};
+
+export const startAddMovieToList = (uid, movieObj = {}) => {
+  return async dispatch => {
+    await firebaseFetch.addMovieToList(uid, movieObj);
+    return await dispatch(addMovieToList(movieObj));
+  };
+};
+
+export const removeMovieFromList = movieObj => {
+  return {
+    type: "REMOVE_MOVIE",
+    payload: { ...movieObj }
+  };
+};
+
+export const startRemoveMovieFromList = (uid, movieObj = {}) => {
+  return async dispatch => {
+    await firebaseFetch.removeMovieFromList(uid, movieObj);
+    return await dispatch(removeMovieFromList(movieObj));
+  };
+};
