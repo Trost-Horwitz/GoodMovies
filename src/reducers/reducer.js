@@ -13,7 +13,7 @@ export default (state = reducerDefaultState, action) => {
       newToWatch[action.payload.id] = action.payload;
       return { ...state, toWatch: newToWatch };
     case "GET_USER_DATA":
-      return {...state, ...action.payload};
+      return {...state, toWatch: action.payload};
     case "UPDATE_USER_DATA":
       return {...state, ...action.payload};
     default:

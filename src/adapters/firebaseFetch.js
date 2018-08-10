@@ -8,7 +8,7 @@ const firebaseFetch = {
       .collection("users")
       .doc(`${uid}`)
       .set({
-        toWatchList: {}
+        toWatch: {}
       })
       .catch(error =>
         console.error("Error creating new user in firebase:", error)
@@ -30,6 +30,7 @@ const firebaseFetch = {
   },
 
   getUserData: async function(uid) {
+    console.log("GetUserData - FirebaseFetch", uid)
     try {
       const userRef = await this.db.collection("users").doc(uid);
       const userObj = await userRef.get();
@@ -42,7 +43,7 @@ const firebaseFetch = {
 
   addMovieToList: async function(uid, movieObj) {
     try {
-      const toWatchWithID = `toWatchList.${movieObj.id}`;
+      const toWatchWithID = `toWatch.${movieObj.id}`;
       const userRef = await this.db.collection("users").doc(uid);
       await userRef.update({
         [toWatchWithID]: movieObj
@@ -56,7 +57,7 @@ const firebaseFetch = {
 
   removeMovieFromList: async function(uid, movieObj) {
     try {
-      const toWatchWithID = `toWatchList.${movieObj.id}`;
+      const toWatchWithID = `toWatch.${movieObj.id}`;
       const userRef = await this.db.collection("users").doc(uid);
       const removeMovie = await userRef.update({
         [toWatchWithID]: firebase.firestore.FieldValue.delete()

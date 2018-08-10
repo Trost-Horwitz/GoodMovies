@@ -5,11 +5,13 @@ import firebaseFetch from "../adapters/firebaseFetch";
 //   payload: { uid: authDetails.user.uid }
 // });
 
-export const getUserData = (userId = "") => {
-  const udata = firebaseFetch.getUserData(userId);
-  return {
-    type: "GET_USER_DATA",
-    payload: { ...udata}
+export const getUserData = (udata) => {
+  console.log("getUserData REDUX action", udata)
+  if (udata){
+    return {
+      type: "GET_USER_DATA",
+      payload: { ...udata.toWatch}
+    }
   }
 };
 
@@ -18,10 +20,11 @@ export const startGetUserData = (authDetails = {}) => {
     return function action(dispatch) {
       firebaseFetch
         .createUser(authDetails.user.uid)
-        .then(data => dispatch(getUserData(data)));
+        // .then(data => dispatch(getUserData(data)));
     };
   } else {
     return function action(dispatch) {
+      console.log("start get user data", authDetails)
       firebaseFetch
         .getUserData(authDetails.user.uid)
         .then(data => dispatch(getUserData(data)));
