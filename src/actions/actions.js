@@ -20,7 +20,6 @@ export const startGetUserData = (authDetails = {}) => {
     return function action(dispatch) {
       firebaseFetch
         .createUser(authDetails.user.uid)
-        // .then(data => dispatch(getUserData(data)));
     };
   } else {
     return function action(dispatch) {

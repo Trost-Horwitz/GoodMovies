@@ -7,7 +7,6 @@ import MovieCardRow from "../MovieCardRow";
 
 class UserPage extends React.Component{
   render(){
-    console.log("insideUserPage", this.props.reducer.toWatch)
     //authDetails has these useful properties:
     // authDetails.additionalUserInfo.isNewUser (boolean)
     // authDetails.user.uid (string)

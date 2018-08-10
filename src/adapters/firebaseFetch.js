@@ -30,7 +30,6 @@ const firebaseFetch = {
   },
 
   getUserData: async function(uid) {
-    console.log("GetUserData - FirebaseFetch", uid)
     try {
       const userRef = await this.db.collection("users").doc(uid);
       const userObj = await userRef.get();
