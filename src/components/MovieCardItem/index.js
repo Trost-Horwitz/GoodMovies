@@ -6,12 +6,12 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "../Button";
+import AddToListButton from "../AddToListButton";
 import Typography from "@material-ui/core/Typography";
 
 import firebase from "firebase";
 import { connect } from "react-redux";
-import { startAddMovieToList } from "../../actions/actions";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const styles = {
   card: {
@@ -39,32 +39,30 @@ function MovieCardItem(props) {
           title={movie.title}
         />
         <CardContent>
-          <Typography gutterBottom variant="headline" component="h2">
-            {movie.title}
-          </Typography>
+          <Link to={{ pathname: `/movie/${movie.id}` }}>
+            <Typography gutterBottom variant="headline" component="h2">
+              {movie.title}
+            </Typography>
+          </Link>
           <Typography component="p">
             {movie.overview.substring(0, 250)}
             {movie.overview.length > 250 ? "..." : ""}
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" color="primary">
-            View Details
-          </Button>
-          {firebase.auth().currentUser ? (
-            <Button
-              onClick={() => handleClickAddMovie(props)}
-              size="small"
-              color="primary"
-            >
-              Add To Watch List
+          <Link to={{ pathname: `/movie/${movie.id}` }}>
+            <Button size="small" color="primary">
+              View Details
             </Button>
+          </Link>
+          {firebase.auth().currentUser ? (
+            <AddToListButton movie={movie} />
           ) : (
-            <NavLink to="/signin">
+            <Link to="/signin">
               <Button size="small" color="primary">
                 Login & Add To Watch List
               </Button>
-            </NavLink>
+            </Link>
           )}
         </CardActions>
       </Card>
@@ -80,15 +78,6 @@ const mapStateToProps = state => {
   return state;
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    startAddMovieToList: (id, movie) => dispatch(startAddMovieToList(id, movie))
-  };
-};
-
 const StyledComponent = withStyles(styles)(MovieCardItem);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(StyledComponent);
+export default connect(mapStateToProps)(StyledComponent);
