@@ -6,12 +6,12 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "../Button";
+import AddToListButton from "../AddToListButton";
 import Typography from "@material-ui/core/Typography";
 
 import firebase from "firebase";
 import { connect } from "react-redux";
-import { startAddMovieToList } from "../../actions/actions";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const styles = {
   card: {
@@ -39,18 +39,22 @@ function MovieCardItem(props) {
           title={movie.title}
         />
         <CardContent>
-          <Typography gutterBottom variant="headline" component="h2">
-            {movie.title}
-          </Typography>
+          <Link to={{ pathname: `/movie/${movie.id}` }}>
+            <Typography gutterBottom variant="headline" component="h2">
+              {movie.title}
+            </Typography>
+          </Link>
           <Typography component="p">
             {movie.overview.substring(0, 250)}
             {movie.overview.length > 250 ? "..." : ""}
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" color="primary">
-            View Details
-          </Button>
+          <Link to={{ pathname: `/movie/${movie.id}` }}>
+            <Button size="small" color="primary">
+              View Details
+            </Button>
+          </Link>
           {firebase.auth().currentUser ? (
             <AddToListButton movie={movie} />
           ) : (
