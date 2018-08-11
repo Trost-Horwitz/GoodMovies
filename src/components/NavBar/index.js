@@ -40,11 +40,11 @@ function ButtonAppBar(props) {
         <CustomToolbar>
           <NavLink to="/">
             <Typography variant="display1" color="inherit">
-              MovieNotes.io
+              React Movies
             </Typography>
           </NavLink>
           <ButtonContainer>
-            <NavLink to='/search'>
+            <NavLink to="/search">
               <TextButton size="large">Search</TextButton>
             </NavLink>
             <TextButton size="large">Browse</TextButton>
@@ -55,18 +55,19 @@ function ButtonAppBar(props) {
               Login
             </TextButton> */}
 
-          {firebase.auth().currentUser ?
-          <NavLink to="/user">
-            <TextButton variant="contained" color="secondary" size="large">
-              User Page
-            </TextButton>
-          </NavLink>
-          :
-          <NavLink to="/signin">
-            <TextButton variant="contained" color="secondary" size="large">
-              Sign In
-            </TextButton>
-          </NavLink>}
+            {firebase.auth().currentUser ? (
+              <NavLink to="/user">
+                <TextButton variant="contained" color="secondary" size="large">
+                  User Page
+                </TextButton>
+              </NavLink>
+            ) : (
+              <NavLink to="/signin">
+                <TextButton variant="contained" color="secondary" size="large">
+                  Sign In
+                </TextButton>
+              </NavLink>
+            )}
           </ButtonContainer>
         </CustomToolbar>
       </AppBar>
