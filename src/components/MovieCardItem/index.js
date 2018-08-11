@@ -52,19 +52,13 @@ function MovieCardItem(props) {
             View Details
           </Button>
           {firebase.auth().currentUser ? (
-            <Button
-              onClick={() => handleClickAddMovie(props)}
-              size="small"
-              color="primary"
-            >
-              Add To Watch List
-            </Button>
+            <AddToListButton movie={movie} />
           ) : (
-            <NavLink to="/signin">
+            <Link to="/signin">
               <Button size="small" color="primary">
                 Login & Add To Watch List
               </Button>
-            </NavLink>
+            </Link>
           )}
         </CardActions>
       </Card>
@@ -80,15 +74,6 @@ const mapStateToProps = state => {
   return state;
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    startAddMovieToList: (id, movie) => dispatch(startAddMovieToList(id, movie))
-  };
-};
-
 const StyledComponent = withStyles(styles)(MovieCardItem);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(StyledComponent);
+export default connect(mapStateToProps)(StyledComponent);
