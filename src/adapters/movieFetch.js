@@ -9,7 +9,9 @@ const movieFetch = {
 
   // movieFetch.movieById(15) -> {title:"Citizen Kane", ...}
   movieById: function(id) {
-    return fetch(this.baseURL + `movie/${id}` + this.key).then(this.parseJson);
+    return fetch(
+      this.baseURL + `movie/${id}` + this.key + `&append_to_response=credits`
+    ).then(this.parseJson);
   },
 
   // movieFetch.recommendedMoviesById(15) -> [{title:"A great movie", ...}, {title:"Another great movie", ...}]
