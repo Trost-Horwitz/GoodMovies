@@ -29,7 +29,7 @@ const CustomToolbar = styled(Toolbar)`
 `;
 
 const Spacer = styled.div`
-  height: 100px;
+  height: 50px;
 `;
 
 function ButtonAppBar(props) {
