@@ -24,15 +24,6 @@ function MovieDetailTable(props) {
   return (
     <Paper className={classes.root}>
       <Table>
-        {/* <TableHead>
-          <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell numeric>Calories</TableCell>
-            <TableCell numeric>Fat (g)</TableCell>
-            <TableCell numeric>Carbs (g)</TableCell>
-            <TableCell numeric>Protein (g)</TableCell>
-          </TableRow>
-        </TableHead> */}
         <TableBody>
           {movie.runtime && (
             <TableRow key="budget">
