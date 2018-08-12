@@ -24,24 +24,85 @@ const InfoContainer = styled.div`
   padding: 3rem 2rem;
   display: grid;
   grid-template-columns: 1fr 2fr;
-  grid-template-rows: auto auto auto auto;
-  grid-template-areas:
-    "poster title"
-    "poster buttons"
-    "poster overview"
-    "poster overview";
+  grid-template-rows: auto;
+  grid-column-gap: 2rem;
+  grid-row-gap: 1rem;
 
   .poster {
-    grid-area: poster;
+    grid-column: 1 / 1;
+    grid-row: 1 / 5;
+    display: flex;
+    justify-content: flex-end;
+    place-items: start start;
+    img {
+      max-width: 500px;
+      width: 100%
+    }
   }
   .title {
-    grid-area: title;
+    place-self: start start;
+    grid-column: 2 / 2;
+    grid-row: 1/1;
+    h1{
+      margin:0;
+    }
   }
   .buttons {
-    grid-area: buttons;
+    display: flex;
+    flex-flow row wrap;
+    grid-column: 2 / 2;
+    grid-row: 2/2;
   }
   .overview {
-    grid-area: overview;
+    font-weight: 300;
+    grid-column: 2 / 2;
+    grid-row: 3/3;
+  }
+  .detail-table {
+    grid-column: 2 / 3;
+    grid-row: 4/4;
+  }
+  .actor-row {
+    grid-column 1/3;
+    grid-row 5/5;
+  }
+
+
+  @media all and (max-width:800px) { 
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-column-gap: 2rem;
+  grid-row-gap: 1rem;
+
+  .poster {
+    grid-column: 1/1;
+    grid-row: 2/3;
+  }
+    .title {
+      grid-column: 1/3;
+      grid-row: 1/1;
+    }
+    .buttons {
+      display: flex;
+      flex-flow column wrap;
+      grid-row: 2/3;
+  
+      grid-column: 2 / 2;
+    }
+    .overview {
+      font-weight: 300;
+      grid-row: 4/4;
+      grid-column: 1 / 3;
+    }
+    .detail-table {
+      grid-row: 5/5;
+      grid-column: 1 / 3;
+    }
+    .actor-row {
+      grid-column 1/3;
+      grid-row 6/6;
+    }
+
   }
 `;
 
@@ -73,13 +134,23 @@ class MovieDetailPage extends React.Component {
                 src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
               />
             </div>
+            <div className="buttons">
+              <AddToListButton movie={movie} />
+              <p>
+                User Score <span>{movie.vote_average * 10}</span>
+                <span>%</span>
+              </p>
+            </div>
             <div className="overview">
               <p>{movie.overview}</p>
+            </div>
+            <div className="detail-table">
+              <MovieDetailTable movie={movie} />
             </div>
             {movie.credits && (
               <div className="actor-row">
                 <ActorCardRow cast={movie.credits.cast} />
-            </div>
+              </div>
             )}
           </InfoContainer>
         </BackdropContainer>
