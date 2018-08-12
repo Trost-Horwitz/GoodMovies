@@ -12,7 +12,7 @@ import movieFetch from "../../adapters/movieFetch";
 
 const styles = theme => ({
   root: {
-    maxWidth: "600px",
+    maxWidth: "100%",
     marginTop: theme.spacing.unit * 3,
     overflowX: "auto"
   }
