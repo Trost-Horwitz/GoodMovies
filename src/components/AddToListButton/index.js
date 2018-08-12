@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "../Button";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import firebase from "firebase";
 import {
@@ -25,9 +26,18 @@ class AddToListButton extends Component {
   render() {
     return (
       <div>
-        <Button onClick={() => this.handleClick(this.props)} variant="outlined">
-          {this.props.toWatch[this.props.movie.id] ? "-" : "+"}
-        </Button>
+        {firebase.auth().currentUser ? (
+          <Button
+            onClick={() => this.handleClick(this.props)}
+            variant="outlined"
+          >
+            {this.props.toWatch[this.props.movie.id] ? "-" : "+"}
+          </Button>
+        ) : (
+          <Link to="/signin">
+            <Button variant="outlined">+</Button>
+          </Link>
+        )}
       </div>
     );
   }
