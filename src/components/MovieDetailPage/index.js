@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import MovieDetailTable from "../MovieDetailTable";
 import AddToListButton from "../AddToListButton";
+import ActorCardRow from "../ActorCardRow";
 
 import movieFetch from "../../adapters/movieFetch";
 
@@ -75,11 +76,11 @@ class MovieDetailPage extends React.Component {
             <div className="overview">
               <p>{movie.overview}</p>
             </div>
-            <div className="buttons">
-              <AddToListButton movie={movie} />
-              <p>User Average: {movie.vote_average * 10}%</p>
+            {movie.credits && (
+              <div className="actor-row">
+                <ActorCardRow cast={movie.credits.cast} />
             </div>
-            <MovieDetailTable movie={movie} />
+            )}
           </InfoContainer>
         </BackdropContainer>
       </div>
