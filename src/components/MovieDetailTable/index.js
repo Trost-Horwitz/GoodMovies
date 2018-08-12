@@ -30,7 +30,9 @@ function MovieDetailTable(props) {
               <TableCell component="th" scope="row">
                 Movie Runtime
               </TableCell>
-              <TableCell>{numeral(movie.runtime).format("00:00:00")}</TableCell>
+              <TableCell>
+                {numeral(movie.runtime * 60).format("00:00:00")}
+              </TableCell>
             </TableRow>
           )}
           {movie.genres && (
