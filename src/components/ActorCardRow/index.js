@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import MovieCardItem from "../MovieCardItem";
+import ActorCardItem from "../ActorCardItem";
 
 const Container = styled.section`
   display: flex;
@@ -12,8 +12,8 @@ const Container = styled.section`
 function MovieCardRow(props) {
   return (
     <Container>
-      {props.movies &&
-        props.movies.map(movie => <MovieCardItem movie={movie} />)}
+      {props.cast &&
+        props.cast.slice(0, 6).map(actor => <ActorCardItem actor={actor} />)}
     </Container>
   );
 }

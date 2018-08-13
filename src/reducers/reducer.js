@@ -10,7 +10,7 @@ export default (state = reducerDefaultState, action) => {
       return { ...state, toWatch: newToWatch };
     case "REMOVE_MOVIE":
       newToWatch = state.toWatch;
-      newToWatch[action.payload.id] = action.payload;
+      delete newToWatch[action.payload.id];
       return { ...state, toWatch: newToWatch };
     case "GET_USER_DATA":
       return {...state, toWatch: action.payload};
