@@ -5,39 +5,49 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import MovieCardRow from "../MovieCardRow";
 import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import movieFetch from "../../adapters/movieFetch";
 
 class UserPage extends React.Component{
 
   constructor(props){
     super(props)
     this.state = {
+      genres:[]
     }
   }
 
   componentDidMount(){
-    const obj = this.props
-
-    console.log(obj)
+    // const genres = movieFetch.genres.map(genre=>genre.name)
+    // this.setState({...this.state,genres:genres})
   }
 
   componentDidUpdate(){
     if (!this.state.userMovies){
-      this.setState({...this.state,userMovies:Object.values(this.props.reducer.toWatch)})
+      const userMovies = Object.values(this.props.reducer.toWatch)
+      let genres = []
+       userMovies.forEach(movie => movie.genre_ids.forEach(id=> genres.includes(id)? null : genres.push(id)))
+      this.setState({...this.state,userMovies,genres})
     }
   }
 
-
   handleText = (e) =>{
-
-    console.log(Object.values(this.props.reducer.toWatch))
-
     if (e.target.value !== "" && this.state.userMovies){
 
       const filteredMovies =  Object.values(this.props.reducer.toWatch).filter(movie => movie.title.toLowerCase().includes(`${e.target.value.toLowerCase()}`))
 
-      this.setState({userMovies:filteredMovies})
+      const genres = []
+      for (let movie of filteredMovies){
+      }
+
+      this.setState({...this.state, userMovies:filteredMovies})
+
     } else {
+
       this.setState({...this.state,userMovies:Object.values(this.props.reducer.toWatch)})
+
     }
   }
 
@@ -46,14 +56,6 @@ class UserPage extends React.Component{
 
   render(){
     console.log(this.state)
-    //authDetails has these useful properties:
-    // authDetails.additionalUserInfo.isNewUser (boolean)
-    // authDetails.user.uid (string)
-    // authDetails.user.displayName (string)
-    // authDetails.user.email (string)
-    // authDetails.user.emailVerified (boolean)
-    //  <Redirect to='/user'/>
-    // firebase.auth().currentUser
     return (
       <div>
     {firebase.auth().currentUser ?
@@ -63,7 +65,6 @@ class UserPage extends React.Component{
       {Object.keys(this.props.reducer.toWatch).length !== 0 ?
         <React.Fragment>
           <TextField autoFocus id="full-width" label="Search Your Movies By Title" InputLabelProps={{ shrink: true, }} onKeyUp={this.handleText} placeholder="Search..." fullWidth margin="normal"/>
-
          <MovieCardRow movies={this.state.userMovies} />
        </React.Fragment>
         : <p>Add Movies To Your List!</p>
