@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "../NavBar";
-import MovieCardRow from "../MovieCardRow";
+import ScrollRow from "../ScrollRow";
 import firebase from "firebase";
 import { connect } from "react-redux";
 
@@ -8,14 +8,8 @@ class HomePage extends React.Component {
   render(props) {
     return (
       <div>
-        <button
-          onClick={() => {
-            console.log(firebase.auth().currentUser.displayName);
-          }}
-        >
-          WHATS MY NAME
-        </button>
-        <MovieCardRow movies={this.props.apiData} />
+        <h4 style={{ marginBottom: "8px", lineHeight: 0 }}>Popular Movies</h4>
+        <ScrollRow movies={this.props.apiData} />
       </div>
     );
   }
