@@ -47,7 +47,7 @@ function ButtonAppBar(props) {
             <NavLink to="/search">
               <TextButton size="large">Search</TextButton>
             </NavLink>
-            <TextButton size="large">Browse</TextButton>
+            {/* <TextButton size="large">Browse</TextButton> */}
 
             {/* consider making one button "sign in / sign up" since firebase auth takes care of both in the same UI. Once signin === true the button can change to logout. */}
 
