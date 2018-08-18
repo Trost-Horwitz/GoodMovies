@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 const CardContainer = styled.div`
+  display: inline-block;
   padding: 0.5rem 0;
 `;
 
@@ -25,7 +26,7 @@ const styles = {
   },
   media: {
     height: 0,
-    paddingTop: "135%"
+    paddingTop: "140%"
   }
 };
 
@@ -39,18 +40,18 @@ function MovieCardItem(props) {
   return (
     <CardContainer>
       <Card className={classes.card}>
-        <Link to={{ pathname: `/movie/${movie.id}` }}>
-          <CardMedia
-            className={classes.media}
-            image={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-            title={movie.title}
-          />
-          <CardContent>
+        {/* <Link to={{ pathname: `/movie/${movie.id}` }}> */}
+        <CardMedia
+          className={classes.media}
+          image={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+          title={movie.title}
+        />
+        {/* <CardContent>
             <Typography variant="subheading" component="h6">
               {movie.title}
             </Typography>
-          </CardContent>
-        </Link>
+          </CardContent> */}
+        {/* </Link> */}
         <CardActions>
           <AddToListButton movie={movie} />
         </CardActions>
