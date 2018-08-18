@@ -11,7 +11,6 @@ const ArrowContainer = styled.div`
   background: transparent;
   padding: 0;
   border: 0;
-
   position: absolute;
   top: 0;
   bottom: 0;
@@ -21,17 +20,14 @@ const ArrowContainer = styled.div`
 const Arrow = styled.div`
   display: flex;
   align-self: center;
-  // background-color: rgba(255, 255, 255, 0.4);
   &:focus {
     outline: 0;
   }
   &:hover {
     cursor: pointer;
   }
-	padding: 10px 10px;
-
+  padding: 10px 10px;
 `;
-
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -41,7 +37,7 @@ function SampleNextArrow(props) {
       style={{ ...style, right: 0, display: "flex" }}
     >
       <Arrow onClick={onClick}>
-        <img src={arrowIcon}  style={{width: "50px", height:"50px"}}/>
+        <img src={arrowIcon} style={{ width: "50px", height: "50px" }} />
       </Arrow>
     </ArrowContainer>
   );
@@ -60,9 +56,15 @@ function SamplePrevArrow(props) {
       }}
     >
       <Arrow onClick={onClick}>
-			<img src={arrowIcon}  style={{width: "40px", height:"40px",   transform: "rotate(180deg)", opacity:".8"}}/>
-			
-			</Arrow>
+        <img
+          src={arrowIcon}
+          style={{
+            width: "50px",
+            height: "50px",
+            transform: "rotate(180deg)"
+          }}
+        />
+      </Arrow>
     </ArrowContainer>
   );
 }
