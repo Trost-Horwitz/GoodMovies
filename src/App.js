@@ -6,8 +6,6 @@ import { Provider } from "react-redux";
 
 import configureStore from "./store/configureStore";
 import movieFetch from "./adapters/movieFetch";
-import firebaseFetch from "./adapters/firebaseFetch";
-import SignInScreen from "./components/FirebaseAuth/SignInScreen";
 import theme from "./theme";
 import "./App.css";
 

@@ -3,13 +3,9 @@ import React from "react";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import firebase from "firebase";
 import { connect } from "react-redux";
-
 import { signin } from "../../actions/auth";
 import { startGetUserData } from "../../actions/actions";
-
 import { Redirect } from "react-router-dom";
-
-import firebaseFetch from '../../adapters/firebaseFetch'
 
 class SignInScreen extends React.Component {
   // Configure FirebaseUI.
@@ -23,12 +19,12 @@ class SignInScreen extends React.Component {
       firebase.auth.EmailAuthProvider.PROVIDER_ID
     ],
     callbacks: {
-      signInSuccessWithAuthResult: authDetails =>
-        {this.props.dispatch(signin(authDetails))
-          this.props.dispatch(startGetUserData(authDetails))
-          return false
-        },
-    },
+      signInSuccessWithAuthResult: authDetails => {
+        this.props.dispatch(signin(authDetails));
+        this.props.dispatch(startGetUserData(authDetails));
+        return false;
+      }
+    }
   };
   //authDetails has these useful properties:
   // authDetails.additionalUserInfo.isNewUser (boolean)
@@ -40,7 +36,9 @@ class SignInScreen extends React.Component {
   render(props) {
     return (
       <div>
-        {this.props.auth && this.props.auth.uid ? <Redirect to='/user'/> : null}
+        {this.props.auth && this.props.auth.uid ? (
+          <Redirect to="/user" />
+        ) : null}
         <StyledFirebaseAuth
           uiConfig={this.uiConfig}
           firebaseAuth={firebase.auth()}

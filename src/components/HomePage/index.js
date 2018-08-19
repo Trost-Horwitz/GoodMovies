@@ -1,7 +1,5 @@
 import React from "react";
-import NavBar from "../NavBar";
 import ScrollRow from "../ScrollRow";
-import firebase from "firebase";
 import { connect } from "react-redux";
 
 class HomePage extends React.Component {

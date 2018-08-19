@@ -3,16 +3,10 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "../Button";
 import AddToListButton from "../AddToListButton";
-import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
-
-import firebase from "firebase";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
 const CardContainer = styled.div`
   display: inline-block;
@@ -28,11 +22,6 @@ const styles = {
     height: 0,
     paddingTop: "140%"
   }
-};
-
-const handleClickAddMovie = props => {
-  const userID = firebase.auth().currentUser.uid;
-  props.startAddMovieToList(userID, props.movie);
 };
 
 function MovieCardItem(props) {

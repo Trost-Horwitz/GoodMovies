@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import styled from "styled-components";
 
@@ -14,7 +13,6 @@ const StyledButton = styled(Button)`
 `;
 
 function TextButton(props) {
-  const { classes } = props;
   return (
     <StyledButton disableRipple {...props}>
       {React.Children.map(props.children, child => child)}

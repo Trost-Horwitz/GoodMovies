@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import "./slick-theme.css";
 import "./slick.css";
 import Slider from "react-slick";
 import styled from "styled-components";
@@ -86,7 +85,6 @@ export default class SimpleSlider extends Component {
       nextArrow: <NextArrow />,
       prevArrow: <PrevArrow />
     };
-    console.log(Math.floor(this.state.width / 275));
     return (
       <div>
         <Slider {...settings}>
