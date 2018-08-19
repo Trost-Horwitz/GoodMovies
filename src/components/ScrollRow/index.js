@@ -29,7 +29,7 @@ const Arrow = styled.div`
   padding: 10px 10px;
 `;
 
-function SampleNextArrow(props) {
+function NextArrow(props) {
   const { className, style, onClick } = props;
   return (
     <ArrowContainer
@@ -43,7 +43,7 @@ function SampleNextArrow(props) {
   );
 }
 
-function SamplePrevArrow(props) {
+function PrevArrow(props) {
   const { className, style, onClick } = props;
   return (
     <ArrowContainer
@@ -69,12 +69,10 @@ function SamplePrevArrow(props) {
   );
 }
 
-const Container = styled.div``;
-
 export default class SimpleSlider extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { width: window.innerWidth };
   }
   render() {
     const settings = {
@@ -84,13 +82,13 @@ export default class SimpleSlider extends Component {
       slidesToShow: 1,
       variableWidth: true,
       swipeToSlide: true,
-      slidesToScroll: 3,
-      nextArrow: <SampleNextArrow />,
-      prevArrow: <SamplePrevArrow />
+      slidesToScroll: Math.floor(this.state.width / 275),
+      nextArrow: <NextArrow />,
+      prevArrow: <PrevArrow />
     };
-
+    console.log(Math.floor(this.state.width / 275));
     return (
-      <Container>
+      <div>
         <Slider {...settings}>
           {this.props.movies &&
             this.props.movies.map(movie => (
@@ -100,7 +98,7 @@ export default class SimpleSlider extends Component {
               />
             ))}
         </Slider>
-      </Container>
+      </div>
     );
   }
 }
