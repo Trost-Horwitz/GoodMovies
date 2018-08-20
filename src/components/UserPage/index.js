@@ -15,7 +15,6 @@ class UserPage extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      genres:[]
     }
   }
 
@@ -33,65 +32,67 @@ class UserPage extends React.Component{
   }
 
   updateAvalibleGenres(movieList){
-    let genres = []
-     movieList.forEach(movie => movie.genre_ids.forEach(id=> genres.includes(id)? null : genres.push(id)))
+    let genres = {}
+     movieList.forEach(movie => movie.genre_ids.forEach(id=> Object.keys(genres).includes(id)? null : genres[id] = true))
      return genres
   }
 
   handleText = (e) =>{
-    const userMovies = Object.values(this.props.reducer.toWatch)
-    if (e.target.value !== "" && this.state.userMovies){
+    this.setState({searchTerm:`${e.target.value}`})
+  }
 
-      const filteredMovies =  userMovies.filter(movie => movie.title.toLowerCase().includes(`${e.target.value.toLowerCase()}`))
-      const genres = this.updateAvalibleGenres(filteredMovies)
-      this.setState({...this.state, userMovies:filteredMovies, genres})
+  checkBoxChange = (e) =>{
+    const newGenres = {...this.state.genres}
+    newGenres[e.target.value] = !newGenres[e.target.value]
+    this.setState({...this.state, genres:newGenres})
+  }
 
-    } else {
-      const genres = this.updateAvalibleGenres(userMovies)
-      this.setState({...this.state,userMovies, genres})
+
+  getFilteredMovies(){
+    let filteredMovies = Object.values(this.props.reducer.toWatch)
+
+    if (this.state.genres){
+      filteredMovies =  filteredMovies.filter(movie =>{
+      for (let genreID of movie.genre_ids){
+        if (this.state.genres[genreID]){
+          return true
+        }
+      }})
     }
+
+    if (this.state.searchTerm && this.state.userMovies){
+      filteredMovies =  filteredMovies.filter(movie => movie.title.toLowerCase().includes(`${this.state.searchTerm.toLowerCase()}`))
+    }
+
+    return filteredMovies
   }
 
 
 
-
   render(){
-    console.log(this.state)
     return (
       <div>
     {firebase.auth().currentUser ?
       <div>
       <h2>Hello {firebase.auth().currentUser.displayName}!</h2>
       <h3>Your Movies To Watch:</h3>
-      {Object.keys(this.props.reducer.toWatch).length !== 0 ?
+      {this.state.userMovies && this.state.genres?
         <React.Fragment>
           <TextField autoFocus id="full-width" label="Search Your Movies By Title" InputLabelProps={{ shrink: true, }} onKeyUp={this.handleText} placeholder="Search..." fullWidth margin="normal"/>
 
-          {this.state.genres.map(genre=>
+          {Object.keys(this.state.genres).map(genre=>
             <React.Fragment>
               <Checkbox
-                checked={null}
-                onChange={null}
+                checked={this.state.genres[genre]}
+                onChange={this.checkBoxChange}
                 value={genre}
                 name={genre}
               />
-              <label for={genre}>{movieFetch.genres[genre]}</label>
+              <label htmlFor={genre}>{movieFetch.genres[genre]}</label>
             </React.Fragment>
           )}
 
-          <FormGroup row>
-            <FormControlLabel
-            control={
-              <Checkbox
-                checked={null}
-                onChange={null}
-                value="null"
-              />
-            }
-            label="null"/>
-          </FormGroup>
-
-         <MovieCardRow movies={this.state.userMovies} />
+         <MovieCardRow movies={this.getFilteredMovies()} />
 
        </React.Fragment>
         : <p>Add Movies To Your List!</p>
