@@ -68,11 +68,21 @@ function PrevArrow(props) {
   );
 }
 
-export default class SimpleSlider extends Component {
+export default class ScrollRow extends Component {
   constructor(props) {
     super(props);
-    this.state = { width: window.innerWidth };
+    this.handleItemClick = this.handleItemClick.bind(this);
+    this.state = { width: window.innerWidth, selectedItemId: "" };
   }
+
+  handleItemClick = id => {
+    if (this.state.selectedItemId === id) {
+      this.setState({ selectedItemId: "" });
+    } else {
+      this.setState({ selectedItemId: id });
+    }
+  };
+
   render() {
     const settings = {
       arrows: true,
@@ -93,6 +103,7 @@ export default class SimpleSlider extends Component {
               <MovieCardItem
                 movie={movie}
                 selectedItemId={this.state.selectedItemId}
+                handleItemClick={this.handleItemClick}
               />
             ))}
         </Slider>
