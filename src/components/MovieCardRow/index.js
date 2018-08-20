@@ -1,12 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 import MovieCardItem from "../MovieCardItem";
 
 const Container = styled.section`
   display: flex;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-  align-items: stretch;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 function MovieCardRow(props) {

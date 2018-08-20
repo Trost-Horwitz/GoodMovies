@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import firebase from "firebase";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -10,13 +9,14 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import movieFetch from "../../adapters/movieFetch";
 
-class UserPage extends React.Component{
 
-  constructor(props){
-    super(props)
-    this.state = {
-    }
+
+class UserPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
+
 
   componentDidMount(){
     // const genres = movieFetch.genres.map(genre=>genre.name)
@@ -97,16 +97,16 @@ class UserPage extends React.Component{
        </React.Fragment>
         : <p>Add Movies To Your List!</p>
 
-      }
+        }
+          </div>
+         : (
+          <Redirect to="/signin" />
+        )}
+
       </div>
-
-
-     : <Redirect to='/signin'/>}
-    </div>
     );
   }
-};
-
+}
 
 const mapStateToProps = state => {
   return state;
