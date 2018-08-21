@@ -8,19 +8,26 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import movieFetch from "../../adapters/movieFetch";
+import DragAndDropList from "../DragAndDropList"
 
 
 
 class UserPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+    };
   }
 
 
+// depending on these lifecyclemethods I don't get content after login or when I change pages
+
   componentDidMount(){
-    // const genres = movieFetch.genres.map(genre=>genre.name)
-    // this.setState({...this.state,genres:genres})
+  //   if (!this.state){
+  //   const userMovies = Object.values(this.props.reducer.toWatch)
+  //   const genres = this.updateAvalibleGenres(userMovies)
+  //   this.setState({...this.state,userMovies,genres})
+  // }
   }
 
   componentDidUpdate(){
@@ -70,13 +77,15 @@ class UserPage extends React.Component {
 
 
   render(){
+    console.log("STATE USER PAGE", this.state)
+    console.log("PROPS USER PAGE", this.props)
     return (
       <div>
     {firebase.auth().currentUser ?
       <div>
       <h2>Hello {firebase.auth().currentUser.displayName}!</h2>
       <h3>Your Movies To Watch:</h3>
-      {this.state.userMovies && this.state.genres?
+      {this.state.genres?
         <React.Fragment>
           <TextField autoFocus id="full-width" label="Search Your Movies By Title" InputLabelProps={{ shrink: true, }} onKeyUp={this.handleText} placeholder="Search..." fullWidth margin="normal"/>
 
@@ -93,7 +102,7 @@ class UserPage extends React.Component {
           )}
 
          <MovieCardRow movies={this.getFilteredMovies()} />
-
+         <DragAndDropList />
        </React.Fragment>
         : <p>Add Movies To Your List!</p>
 
