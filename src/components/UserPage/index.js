@@ -102,7 +102,7 @@ class UserPage extends React.Component {
           )}
 
          <MovieCardRow movies={this.getFilteredMovies()} />
-         <DragAndDropList />
+         <DragAndDropList movies={this.getFilteredMovies()} />
        </React.Fragment>
         : <p>Add Movies To Your List!</p>
 

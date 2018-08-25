@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import MovieCardItem from "../MovieCardItem";
 
 
 const getItems = count =>
@@ -54,7 +55,7 @@ class DragAndDropList extends Component {
 
 
     const items = reorder(
-      this.state.items,
+      this.props.movies,
       result.source.index,
       result.destination.index
     )
@@ -75,7 +76,7 @@ class DragAndDropList extends Component {
                 ref={provided.innerRef}
                 style={getListStyle(snapshot.isDraggingOver)}
               >
-                {this.state.items.map((item, index) => (
+                {this.props.movies.map((item, index) => (
                   <Draggable key={item.id} draggableId={item.id} index={index}>
                     {(provided, snapshot) => (
                       <div
@@ -87,7 +88,7 @@ class DragAndDropList extends Component {
                           provided.draggableProps.style
                         )}
                       >
-                        {item.content}
+                      <MovieCardItem movie={item}/>
                       </div>
                     )}
                   </Draggable>
