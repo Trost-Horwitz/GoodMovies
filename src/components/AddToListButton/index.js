@@ -19,7 +19,12 @@ class AddToListButton extends Component {
     if (this.props.toWatch[this.props.movie.id]) {
       props.startRemoveMovieFromList(uid, props.movie);
     } else {
-      props.startAddMovieToList(uid, props.movie);
+
+      // add rank to movie obj assuming rank=number of movies
+      console.log("adding movie to list from button", props.movie)
+      console.log("222adding movie to list from button", Object.keys(this.props.toWatch).length)
+
+      props.startAddMovieToList(uid, {...props.movie, rank:Object.keys(this.props.toWatch).length});
     }
   };
 
