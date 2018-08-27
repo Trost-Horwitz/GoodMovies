@@ -71,7 +71,7 @@ class UserPage extends React.Component {
       filteredMovies =  filteredMovies.filter(movie => movie.title.toLowerCase().includes(`${this.state.searchTerm.toLowerCase()}`))
     }
 
-    return filteredMovies
+    return filteredMovies.sort((a,b)=>(a.rank - b.rank))
   }
 
 
