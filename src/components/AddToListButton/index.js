@@ -16,13 +16,20 @@ class AddToListButton extends Component {
 
   handleClick = props => {
     const uid = firebase.auth().currentUser.uid;
+
     if (this.props.toWatch[this.props.movie.id]) {
       props.startRemoveMovieFromList(uid, props.movie);
+
+      //update all lower ranked movies with new rank
+      // consider moving this to redux
+      for (let movieID in this.props.toWatch){
+        if (this.props.toWatch[movieID].rank > props.movie.rank){
+          props.startAddMovieToList(uid, {...this.props.toWatch[movieID], rank:parseInt(this.props.toWatch[movieID].rank) -1});
+        }
+      }
     } else {
 
       // add rank to movie obj assuming rank=number of movies
-      console.log("adding movie to list from button", props.movie)
-      console.log("222adding movie to list from button", Object.keys(this.props.toWatch).length)
 
       props.startAddMovieToList(uid, {...props.movie, rank:Object.keys(this.props.toWatch).length});
     }
