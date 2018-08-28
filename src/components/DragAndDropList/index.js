@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import MovieCardItem from "../MovieCardItem";
+import { connect } from "react-redux";
+import {
+  startAddMovieToList,
+  startRemoveMovieFromList
+} from "../../actions/actions";
 
 
 const getItems = count =>
@@ -11,6 +16,19 @@ const getItems = count =>
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
+  console.log("REORDER FUNCTION", list, startIndex, endIndex)
+  // if the selected movie is moved down, subtract one from the rank of all the movies it passed
+
+  // if the selected movie is moved up, add one to the rank of all the movies it passed
+  list.map((movie,index)=>{
+    if (index > startIndex && index <= endIndex){
+      debugger
+    }
+
+    if (index < startIndex && index >= endIndex){
+      debugger
+    }
+  })
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
@@ -49,6 +67,7 @@ class DragAndDropList extends Component {
   }
 
   onDragEnd(result){
+
     if(!result.destination){
       return;
     }
@@ -105,4 +124,20 @@ class DragAndDropList extends Component {
 
 }
 
-export default DragAndDropList
+const mapStateToProps = state => {
+  return { ...state, toWatch: state.reducer.toWatch };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    startAddMovieToList: (id, movie) =>
+      dispatch(startAddMovieToList(id, movie)),
+    startRemoveMovieFromList: (id, movie) =>
+      dispatch(startRemoveMovieFromList(id, movie))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DragAndDropList);
