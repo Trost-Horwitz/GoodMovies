@@ -71,6 +71,7 @@ class UserPage extends React.Component {
       filteredMovies =  filteredMovies.filter(movie => movie.title.toLowerCase().includes(`${this.state.searchTerm.toLowerCase()}`))
     }
 
+    // sorts the results based on rank
     return filteredMovies.sort((a,b)=>(a.rank - b.rank))
   }
 
@@ -100,8 +101,6 @@ class UserPage extends React.Component {
               <label htmlFor={genre}>{movieFetch.genres[genre]}</label>
             </React.Fragment>
           )}
-
-         <MovieCardRow movies={this.getFilteredMovies()} />
          <DragAndDropList movies={this.getFilteredMovies()} />
        </React.Fragment>
         : <p>Add Movies To Your List!</p>
