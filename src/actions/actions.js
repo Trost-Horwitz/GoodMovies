@@ -32,6 +32,7 @@ export const startGetUserData = (authDetails = {}) => {
 };
 
 export const addMovieToList = movieObj => {
+  // console.log("in action add movie", movieObj)
   return {
     type: "ADD_MOVIE",
     payload: { ...movieObj }
@@ -39,7 +40,9 @@ export const addMovieToList = movieObj => {
 };
 
 export const startAddMovieToList = (uid, movieObj = {}) => {
+  // console.log("in action start add movie", uid, movieObj)
   return async dispatch => {
+    // console.log("in action start add movie 2", uid, movieObj)
     await firebaseFetch.addMovieToList(uid, movieObj);
     return await dispatch(addMovieToList(movieObj));
   };

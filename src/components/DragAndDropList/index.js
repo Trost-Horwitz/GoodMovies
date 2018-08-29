@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import MovieCardItem from "../MovieCardItem";
 import { connect } from "react-redux";
+import firebase from "firebase";
 import {
   startAddMovieToList,
   startRemoveMovieFromList
@@ -15,18 +16,25 @@ const getItems = count =>
   }));
 
 // a little function to help us with reordering the result
-const reorder = (list, startIndex, endIndex) => {
-  console.log("REORDER FUNCTION", list, startIndex, endIndex)
+const reorder = (list, startIndex, endIndex, props) => {
+  // console.log("REORDER FUNCTION", list, startIndex, endIndex)
+
+  const uid = firebase.auth().currentUser.uid;
+  
   // if the selected movie is moved down, subtract one from the rank of all the movies it passed
 
   // if the selected movie is moved up, add one to the rank of all the movies it passed
   list.map((movie,index)=>{
+
     if (index > startIndex && index <= endIndex){
-      debugger
+      // console.log("Movie moved down", parseInt(movie.rank)-1,movie.rank, movie.title, movie.id, movie, {...movie, rank:parseInt(movie.rank)-1})
+
+      props.startAddMovieToList(uid, {...movie, rank:parseInt(movie.rank)-1})
     }
 
     if (index < startIndex && index >= endIndex){
-      debugger
+      // console.log("Movie moved UP", movie.rank, movie.title)
+      props.startAddMovieToList(uid, {...movie, rank:parseInt(movie.rank)+1})
     }
   })
   const result = Array.from(list);
@@ -76,7 +84,8 @@ class DragAndDropList extends Component {
     const items = reorder(
       this.props.movies,
       result.source.index,
-      result.destination.index
+      result.destination.index,
+      this.props
     )
 
     this.setState({
