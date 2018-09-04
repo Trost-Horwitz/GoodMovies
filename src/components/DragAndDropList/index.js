@@ -20,7 +20,7 @@ const reorder = (list, startIndex, endIndex, props) => {
   // console.log("REORDER FUNCTION", list, startIndex, endIndex)
 
   const uid = firebase.auth().currentUser.uid;
-  
+
   // if the selected movie is moved down, subtract one from the rank of all the movies it passed
 
   // if the selected movie is moved up, add one to the rank of all the movies it passed
@@ -46,23 +46,31 @@ const reorder = (list, startIndex, endIndex, props) => {
 
 const grid = 8;
 
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
+const getItemStyle = (isDragging, draggableStyle, item) => {
+  return {
+  // some basic styles to make the items look a bit nice
   userSelect: 'none',
   padding: grid * 2,
   margin: `0 0 ${grid}px 0`,
+  // displayInside: 'table',
+  // gridTemplateColumns: '1fr 2fr',
+  // gridTemplateRows:'1fr auto',
+  // gridRowGap: '1em',
+
 
   // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
+  background: `#eee url(https://image.tmdb.org/t/p/w500/${item.backdrop_path})`,
+  backgroundSize: 'cover',
 
+  border: isDragging ? '10px solid lightgreen' : 'none',
   // styles we need to apply on draggables
   ...draggableStyle,
-});
+}};
 
 const getListStyle = isDraggingOver => ({
   background: isDraggingOver ? 'lightblue' : 'lightgrey',
   padding: grid,
-  width: 250,
+  width: window.width,
 });
 
 class DragAndDropList extends Component {
@@ -96,7 +104,7 @@ class DragAndDropList extends Component {
 
   render() {
     return(
-      <div>THIS IS DRAG AND DROP LIST
+      <div>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable">
             {(provided, snapshot) => (
@@ -113,10 +121,16 @@ class DragAndDropList extends Component {
                         {...provided.dragHandleProps}
                         style={getItemStyle(
                           snapshot.isDragging,
-                          provided.draggableProps.style
+                          provided.draggableProps.style,
+                          item
                         )}
                       >
+
                       <MovieCardItem movie={item}/>
+                      <div style={{background: 'rgba(255,255,255,.8)', padding: '2px'}}>
+                        <strong>{item.title} | Rank: {item.rank+1}</strong>
+                        <div>{item.overview}</div>
+                      </div>
                       </div>
                     )}
                   </Draggable>
