@@ -56,6 +56,8 @@ class MovieCardItem extends React.Component {
             className={classes.media}
             image={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
             title={movie.title}
+
+            //!!!Uncomment line below to re-enable movie card click event and details window!!!!
             // onClick={() => this.props.handleItemClick(movie.id)}
           />
           {/* <CardContent>

@@ -2,7 +2,7 @@ import React from "react";
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import movieFetch from '../../adapters/movieFetch';
-import MovieCardRow from "../MovieCardRow";
+import ScrollRow from "../ScrollRow";
 
 
 const styles = theme => ({
@@ -58,7 +58,7 @@ class Search extends React.Component{
       // helperText="Full width!"
       fullWidth
       margin="normal"/>
-      <MovieCardRow movies={this.state.searchResults} />
+      <ScrollRow movies={this.state.searchResults} />
     </div>
     )}
 
