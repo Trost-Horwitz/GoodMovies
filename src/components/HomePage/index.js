@@ -8,6 +8,8 @@ class HomePage extends React.Component {
       <div>
         <h4 style={{ marginBottom: "8px", lineHeight: 0 }}>Popular Movies</h4>
         <ScrollRow movies={this.props.apiData} />
+        <h4 style={{ marginBottom: "8px", lineHeight: 0 }}>Now in Theaters</h4>
+        <ScrollRow movies={this.props.apiDataInTheaters} />
       </div>
     );
   }
