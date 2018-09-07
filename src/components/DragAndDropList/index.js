@@ -21,19 +21,21 @@ const reorder = (list, startIndex, endIndex, props) => {
 
   const uid = firebase.auth().currentUser.uid;
 
-  // if the selected movie is moved down, subtract one from the rank of all the movies it passed
-
-  // if the selected movie is moved up, add one to the rank of all the movies it passed
   list.map((movie,index)=>{
+
+    //change rank of selected movie
     if (index === startIndex){
       props.startAddMovieToList(uid, {...movie, rank:parseInt(movie.rank)+(endIndex-startIndex)})
     }
+
+    // if the selected movie is moved down, subtract one from the rank of all the movies it passed
     if (index > startIndex && index <= endIndex){
       // console.log("Movie moved down", parseInt(movie.rank)-1,movie.rank, movie.title, movie.id, movie, {...movie, rank:parseInt(movie.rank)-1})
 
       props.startAddMovieToList(uid, {...movie, rank:parseInt(movie.rank)-1})
     }
 
+    // if the selected movie is moved up, add one to the rank of all the movies it passed
     if (index < startIndex && index >= endIndex){
       // console.log("Movie moved UP", movie.rank, movie.title)
       props.startAddMovieToList(uid, {...movie, rank:parseInt(movie.rank)+1})
