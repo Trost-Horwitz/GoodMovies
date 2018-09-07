@@ -51,10 +51,9 @@ class AddToListButton extends Component {
         </div>
         ) : (
         <div>
-          <Link to="/signin" style={{marginRight:'5px'}}>
-            <Button variant="outlined">+</Button>
+          <Link to="/signin">
+            <Button variant="outlined">Login to build a list</Button>
           </Link>
-          Add to list
         </div>
         )}
       </div>
