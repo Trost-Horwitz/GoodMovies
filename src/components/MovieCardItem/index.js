@@ -56,7 +56,7 @@ class MovieCardItem extends React.Component {
             className={classes.media}
             image={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
             title={movie.title}
-            onClick={() => this.props.handleItemClick(movie.id)}
+            // onClick={() => this.props.handleItemClick(movie.id)}
           />
           {/* <CardContent>
             <Typography variant="subheading" component="h6">
