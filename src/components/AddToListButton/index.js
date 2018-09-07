@@ -22,6 +22,7 @@ class AddToListButton extends Component {
 
       //update all lower ranked movies with new rank
       // consider moving this to redux
+      // may be causing stuttering when removing movies from list, consider a batch update movies function
       for (let movieID in this.props.toWatch){
         if (this.props.toWatch[movieID].rank > props.movie.rank){
           props.startAddMovieToList(uid, {...this.props.toWatch[movieID], rank:parseInt(this.props.toWatch[movieID].rank) -1});
@@ -39,16 +40,22 @@ class AddToListButton extends Component {
     return (
       <div>
         {firebase.auth().currentUser ? (
+        <div>
           <Button
             onClick={() => this.handleClick(this.props)}
             variant="outlined"
           >
             {this.props.toWatch[this.props.movie.id] ? "-" : "+"}
           </Button>
+          {this.props.toWatch[this.props.movie.id] ? " Remove from list" : " Add to list"}
+        </div>
         ) : (
-          <Link to="/signin">
+        <div>
+          <Link to="/signin" style={{marginRight:'5px'}}>
             <Button variant="outlined">+</Button>
           </Link>
+          Add to list
+        </div>
         )}
       </div>
     );
