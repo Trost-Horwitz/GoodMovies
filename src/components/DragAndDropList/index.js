@@ -25,7 +25,9 @@ const reorder = (list, startIndex, endIndex, props) => {
 
   // if the selected movie is moved up, add one to the rank of all the movies it passed
   list.map((movie,index)=>{
-
+    if (index === startIndex){
+      props.startAddMovieToList(uid, {...movie, rank:parseInt(movie.rank)+(endIndex-startIndex)})
+    }
     if (index > startIndex && index <= endIndex){
       // console.log("Movie moved down", parseInt(movie.rank)-1,movie.rank, movie.title, movie.id, movie, {...movie, rank:parseInt(movie.rank)-1})
 
@@ -40,7 +42,6 @@ const reorder = (list, startIndex, endIndex, props) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
-
   return result;
 };
 
